@@ -16,7 +16,10 @@ $( document ).ready(function() {
                 auJoueur1 = true;
             }
 
-            var data = { currentTr: $(this).parent().index(), currentTd: $(this).index() };
+            var data = { 
+                currentTr: $(this).parent().index(), 
+                currentTd: $(this).index() 
+            };
 
             /* $.post( "index.php", { currentTr: $(this).parent().index(), currentTd: $(this).index() })
             .done(function( data ) {
@@ -25,7 +28,7 @@ $( document ).ready(function() {
                 $('.posTd').append(data.currentTd + ', ');
             }); */
 
-            $.post('index.php', { currentTr: $(this).parent().index(), currentTd: $(this).index() }, function() {
+            $.post('index.php', data , function() {
                 /* content.html(response); */
             });
         }

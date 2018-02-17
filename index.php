@@ -22,6 +22,7 @@ $game = new Game($player1, $player2);
     <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
+    <h1>Jeu de go</h1>
     <div class="wrapper-goban">
 
         <?php
