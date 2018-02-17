@@ -2,6 +2,13 @@
     box-sizing: border-box;
 }
 
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
 .wrapper-goban {
     background-color: #f2b06d;
     border: 1px solid #000000;
@@ -47,11 +54,11 @@ ul:last-of-type {
 ul:last-of-type li {
     height: 40px;
 }
-
+/*
 ul li {
     margin-right: -4px;
 }
-
+*/
 table {
     
     border-collapse: collapse;
