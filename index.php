@@ -23,12 +23,25 @@ $game = new Game($player1, $player2);
 </head>
 <body>
     <h1>Jeu de go</h1>
-    <div class="wrapper-goban">
+    <div class="wrapper-game">
+        <div class="wrapper-goban">
+            <?php
+                $board = new Board(9);
+            ?>
+        </div>
 
-        <?php
-            $board = new Board(9);
-        ?>
+        <div class="wrapper-players">
+            <div class="wrapper-player-1">
+                <h2 class="joueur1 actif">Joueur 1</h2>
+                <p class="score">0</p>
+            </div>
+            <div class="wrapper-player-2">
+                <h2 class="joueur2">Joueur 2</h2>
+                <p class="score">0</p>
+            </div>
+        </div>
     </div>
+    
     <script src="public/js/jquery-3.3.1.min.js"></script>
     <script src="public/js/script.js"></script>
 </body>

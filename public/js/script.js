@@ -10,10 +10,12 @@ $( document ).ready(function() {
             if (auJoueur1) {
                 $(this).children('span').addClass('blanc');
                 auJoueur1 = false;
+                $('.joueur1, .joueur2').toggleClass('actif');
             }
             else {
                 $(this).children('span').addClass('noir');
                 auJoueur1 = true;
+                $('.joueur1, .joueur2').toggleClass('actif');
             }
 
             var data = { 
@@ -27,10 +29,6 @@ $( document ).ready(function() {
                 $('.posTr').append(data.currentTr + ', ');
                 $('.posTd').append(data.currentTd + ', ');
             }); */
-
-            $.post('index.php', data , function() {
-                /* content.html(response); */
-            });
         }
     });
 
@@ -42,5 +40,5 @@ $( document ).ready(function() {
                 $(this).children('span').removeClass();
             }
         });
-    }
+    }    
 });
