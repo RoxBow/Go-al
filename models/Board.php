@@ -51,8 +51,6 @@ class Board {
         $posX = $pion->__get('positionX');
         $posY = $pion->__get('positionY');
 
-        var_dump($pion);
-
         $posX += 1;
         $posY += 1;
 

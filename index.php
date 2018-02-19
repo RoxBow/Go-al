@@ -31,7 +31,6 @@ if(isset($_POST["currentTr"]) && isset($_POST["currentTd"])){
     $board->addPositionPion( new Stone(0, intval($_POST["currentTd"]), intval($_POST["currentTr"])) );
     $game->changePlayerTurn();
     $_SESSION['currentBoard'] = $board->updateBoard($board->__get("position"));
-    var_dump($_SESSION['currentBoard']);
 }
 
 // destroy session
@@ -55,15 +54,16 @@ if(isset($_POST["kill"])){
     <button class="kill">Reset session</button>
     <h1>Jeu de go</h1>
     <div class="wrapper-goban">
+        <div class="container-goban">
+            <?php 
 
-        <?php 
-
-            if($_SESSION['currentBoard']){
-              echo $_SESSION['currentBoard'];
-            } else {
-                $board->createBoard($board->__get('cases')); 
-            }
-        ?>
+                if($_SESSION['currentBoard']){
+                echo $_SESSION['currentBoard'];
+                } else {
+                    $board->createBoard($board->__get('cases')); 
+                }
+            ?>
+        </div>
     </div>
 
     <script src="public/js/jquery-3.3.1.min.js"></script>
@@ -91,13 +91,9 @@ if(isset($_POST["kill"])){
             };
 
             $.post('index.php', data, function (data) {
-                console.log("send");
-                $('table').remove();
-                $('.wrapper-goban').html('<?= $_SESSION['currentBoard'] ?>')
-                
+                $('.container-goban').html(data);
             });
         });
-
 
         /* DELETE AFTER DEV */
         /* CLICK TO DELETE SESSION */
