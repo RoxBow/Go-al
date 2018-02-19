@@ -1,6 +1,5 @@
 <?php 
 
-
 require_once('models/Player.php');
 require_once('models/Game.php');
 require_once('models/Board.php');
@@ -53,7 +52,6 @@ if(isset($_POST["kill"])){
 <body>
     <button class="kill">Reset session</button>
     <h1>Jeu de go</h1>
-        <div class="container-goban">
 
         <div class="wrapper-players">
             <div class="wrapper-player-1">
@@ -65,7 +63,7 @@ if(isset($_POST["kill"])){
                 <p class="score">0</p>
             </div>
         </div>
-        <div class="container-goban">
+        <div class="wrapper-goban">
         <?php 
 
             if($_SESSION['currentBoard']){
@@ -75,10 +73,10 @@ if(isset($_POST["kill"])){
             }
         ?>
         </div>
-    </div>
     <script src="public/js/jquery-3.3.1.min.js"></script>
 
     <script>
+        
         
         //let currentPlayer = 1;
 
@@ -100,8 +98,9 @@ if(isset($_POST["kill"])){
                 currentTd: $(this).index()
             };
 
-            $.post('index.php', data, function (data) {
-                $('.container-goban').html(data);
+            $.post('models/updateBoard.php', data, function (data) {
+                console.log("send");
+                $('.wrapper-goban').html(data);
             });
         });
 
