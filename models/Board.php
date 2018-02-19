@@ -45,16 +45,42 @@ class Board {
         echo '</table>';
     }
 
-    public function addPositionPion ( $turn, $x, $y ){
-        $value = $turn === "white" ? 1 : 0;
+    public function addPositionPion ( Stone $pion ){
+        $value = $pion->__get('color');
         // add 1 to respect board number
-        $x += 1;
-        $y += 1;
-        $this->position[$x][$y] = $value;
+        $posX = $pion->__get('positionX');
+        $posY = $pion->__get('positionY');
+
+        var_dump($pion);
+
+        $posX += 1;
+        $posY += 1;
+
+        $this->position[$posX][$posY] = $value;
     }
 
-    public function checkDeadPiece(){
 
+    public function updateBoard($newBoard){
+        
+        $maTable = '<table id="game-board" class="ok">';
+        
+        foreach($newBoard as $row) {
+            $maTable .= '<tr>';
+
+            foreach($row as $cell) {
+                if($cell['color'] === 0){
+                    $maTable .= ('<td> <span class="pion noir"></span> </td>');
+                } else {
+                    $maTable .= ('<td> <span class="pion blanc"></span> </td>');
+                }
+              
+            }
+
+            $maTable .= '</tr>';
+        }
+        $maTable .= '</table>';
+
+        return $maTable;
     }
 
     public function __get($attrName){

@@ -3,26 +3,20 @@
 class Stone {
 
   protected $color;
-  protected $libertyDegree;
-  protected $position = [];
+  protected $libertyDegree = 4;
 
-    public function __construct($positionX, $positionY){
-        $this->position[] = array( 'x'=> $positionX, 'y'=> $positionY );
+    public function __construct($color, $positionX, $positionY){
+        $this->color = $color;
+        $this->positionX = $positionX;
+        $this->positionY = $positionY;
     }
 
-  public function __get($attrName){
-    if(in_array($attrName, $this->fields)){
-        return $this->$attrName;
-    } else{
-        die('get illegal field: '.$attrName);
+    public function __get($attrName){
+        try {
+            return $this->$attrName;
+        } catch (Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
-  }
 
-  public function __set($attrName, $attrValue){ 
-    if(in_array($attrName, $this->fields)){
-        $this ->$attrName = $attrValue;
-    } else{
-        die('set illegal field: '.$attrName);
-    }
-  }
 }

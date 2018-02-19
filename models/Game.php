@@ -27,8 +27,6 @@ class Game {
         } else if($this->currentPlayer === 0) {
             $this->currentPlayer = 1;
         }
-
-
     }
 
     public function __get($attrName){
