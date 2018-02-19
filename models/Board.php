@@ -3,39 +3,41 @@
 class Board {
 
     protected $cases;
+    protected $position;
 
     public function __construct( $nbCases ){
         $this->cases = $nbCases;
-        $this->createBoard( $this->cases );
+        $this->position = [];
     }
-    
 
     public function createBoard( $cases ){
-        for ($a=0; $a < 2; $a++) { 
+
+        for ($a = 0; $a < 2; $a++) { 
             echo '<ul class="repere-lettres">';
-                for($i=0; $i < $cases; $i++) {
+                for($i = 0; $i < $cases; $i++) {
                     echo '<li>&#0'.($i+65).'</li>';
                 }
             echo '</ul>';
         }
 
-        for ($b=0; $b<2; $b++) { 
+        for ($b = 0; $b < 2; $b++) { 
             echo '<ul class="repere-chiffres">';
-                for($i=0; $i < $cases; $i++) {
+                for($i = 0; $i < $cases; $i++) {
                     echo '<li>'.($i+1).'</li>';
                 }
             echo '</ul>';            
         }
-        
+
+        /* # BOARD # */
 
         echo '<table id="game-board">';
         
-        for($i=0; $i < $cases; $i++) {
+        for($i = 0; $i < $cases; $i++) {
             echo '<tr>';
             for($j=0; $j < $cases; $j++) { 
-                echo    '<td>
-                            <span class="pion"></span>
-                        </td>';                
+                $this->position[$i][$j] = 0;
+
+                echo '<td> <span class="pion"></span> </td>';                
             }
             echo '</tr>';
         }
@@ -43,19 +45,24 @@ class Board {
         echo '</table>';
     }
 
-    public function __get($attrName){
-    if(in_array($attrName, $this->fields)){
-        return $this->$attrName;
-    } else{
-        die('get illegal field: '.$attrName);
-    }
+    public function addPositionPion ( $turn, $x, $y ){
+        $value = $turn === "white" ? 1 : 0;
+        // add 1 to respect board number
+        $x += 1;
+        $y += 1;
+        $this->position[$x][$y] = $value;
     }
 
-    public function __set($attrName, $attrValue){ 
-    if(in_array($attrName, $this->fields)){
-        $this ->$attrName = $attrValue;
-    } else{
-        die('set illegal field: '.$attrName);
+    public function checkDeadPiece(){
+
     }
+
+    public function __get($attrName){
+        try {
+            return $this->$attrName;
+        } catch (Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
     }
+
 }
