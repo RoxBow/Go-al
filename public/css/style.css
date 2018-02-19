@@ -7,6 +7,67 @@ body{
     height: 100vh;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.wrapper-game {
+    display: flex;
+    flex-direction: row;
+}
+
+.wrapper-players {
+    display: flex;
+    flex-direction: row;
+}
+
+.actif::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 80%;
+    border: 1px solid #000;
+    bottom: -4px;
+    background: #000;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wrapper-players .wrapper-player-1, .wrapper-players .wrapper-player-2 {
+    margin: 0 40px;
+}
+
+.wrapper-players .wrapper-player-1 h2, .wrapper-players .wrapper-player-2 h2{
+    margin: 0;
+    position: relative;
+}
+
+.wrapper-players .wrapper-player-1 h2::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    top: 50%;
+    border: 1px solid #000000;
+    transform: translateY(-50%);
+    margin-left: 10px
+}
+
+.wrapper-players .wrapper-player-2 h2::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #000000;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px
+}
+
+.wrapper-players p {
+    text-align: center;
 }
 
 .wrapper-goban {
