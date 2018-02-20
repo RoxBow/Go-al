@@ -1,9 +1,9 @@
 <?php 
 
-require_once('models/Player.php');
-require_once('models/Game.php');
-require_once('models/Board.php');
-require_once('models/Stone.php');
+function __autoload($classname) {
+    $filename = "./models/". $classname .".php";
+    include_once($filename);
+}
 
 //$board = new monBoard(9);
 
@@ -21,16 +21,10 @@ if(!$_SESSION['board'] &&
 };
 
 $board = $_SESSION['board'];
+
 $player1 = $_SESSION['player1'];
 $player2 = $_SESSION['player2'];
 $game = $_SESSION['game'];
-
-// When user play a piece
-if(isset($_POST["currentTr"]) && isset($_POST["currentTd"])){
-    $board->addPositionPion( new Stone(0, intval($_POST["currentTd"]), intval($_POST["currentTr"])) );
-    $game->changePlayerTurn();
-    $_SESSION['currentBoard'] = $board->updateBoard($board->__get("position"));
-}
 
 // destroy session
 if(isset($_POST["kill"])){
