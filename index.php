@@ -8,23 +8,28 @@ function __autoload($classname) {
 session_start();
 
 // If game doesn't exist
-if(!isset($_SESSION['board']) && 
-   !isset($_SESSION['player1']) && 
-   !isset($_SESSION['player2']) && 
-   !isset($_SESSION['game'])){
+// if(!isset($_SESSION['board']) && 
+//    !isset($_SESSION['player1']) && 
+//    !isset($_SESSION['player2']) && 
+//    !isset($_SESSION['game'])){
 
+    
+// };
+
+if(isset($_SESSION['board']) && 
+   isset($_SESSION['player1']) && 
+   isset($_SESSION['player2']) && 
+   isset($_SESSION['game'])){
+
+    $board = $_SESSION['board'];
+    $player1 = $_SESSION['player1'];
+    $player2 = $_SESSION['player2'];
+    $game = $_SESSION['game'];
+}
+
+if(!isset($_SESSION['board'])){
     $_SESSION['board'] = new Board(9);
-    $_SESSION['player1'] = new Player('White');
-    $_SESSION['player2'] = new Player('Black');
-    $_SESSION['game'] = new Game($_SESSION['player1'], $_SESSION['player2']);
-    $_SESSION['currentBoard'] = null;
-};
-
-$board = $_SESSION['board'];
-
-$player1 = $_SESSION['player1'];
-$player2 = $_SESSION['player2'];
-$game = $_SESSION['game'];
+}
 
 // destroy session
 if(isset($_POST["kill"])){
@@ -49,11 +54,11 @@ if(isset($_POST["kill"])){
 
         <div class="wrapper-players">
             <div class="wrapper-player-1">
-                <h2 class="joueur1 actif">Joueur 1</h2>
+                <h2 class="joueur1">Joueur 1</h2>
                 <p class="score">0</p>
             </div>
             <div class="wrapper-player-2">
-                <h2 class="joueur2">Joueur 2</h2>
+                <h2 class="joueur2 actif">Joueur 2</h2>
                 <p class="score">0</p>
             </div>
         </div>
@@ -62,8 +67,8 @@ if(isset($_POST["kill"])){
 
             if($_SESSION['currentBoard']){
               echo $_SESSION['currentBoard'];
-            } else {
-                $board->createBoard($board->__get('cases')); 
+            } else if($_SESSION['board']) {
+                $_SESSION['board']->createBoard($_SESSION['board']->__get('cases')); 
             }
         ?>
         </div>
@@ -72,7 +77,20 @@ if(isset($_POST["kill"])){
     <script>
         
         //let currentPlayer = 1;
-    
+        $(document).ready(function() {
+            let players = {
+                player1: prompt('Choisissez nom player1'),
+                player2: prompt('Choisissez nom player2'),
+            }
+
+            $.post('models/updateBoard.php', players, function (data) {
+                data = JSON.parse(data);
+                $('.joueur1').text(data.player1);
+                $('.joueur2').text(data.player2);
+            });
+
+        });
+
         $('body').on('click', 'table td', function () {
             // piece already on this case
             if (($(this).children('span').hasClass('blanc') || ($(this).children('span').hasClass('noir')))) {

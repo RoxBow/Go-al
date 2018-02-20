@@ -7,12 +7,12 @@ class Game {
     private $Player1;
     private $Player2;
     
-    // 1 = white | 2 = black
-    // player start is white
-
     public function __construct(Player $Player1, Player $Player2) {
         $this->Player1 = $Player1;
         $this->Player2 = $Player2;
+
+        // 1 = black | 2 = white
+        // player start is black
         $this->currentPlayer = 1;
     }
 
