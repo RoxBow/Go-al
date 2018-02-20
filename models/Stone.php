@@ -2,7 +2,6 @@
 
 class Stone {
 
-  protected $color;
   protected $libertyDegree = 4;
 
     public function __construct($color, $positionX, $positionY){

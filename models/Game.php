@@ -7,7 +7,7 @@ class Game {
     private $Player1;
     private $Player2;
     
-    // 1 = white | 0 = black
+    // 1 = white | 2 = black
     // player start is white
 
     public function __construct(Player $Player1, Player $Player2) {
@@ -23,8 +23,8 @@ class Game {
     public function changePlayerTurn(){
 
         if($this->currentPlayer === 1){
-            $this->currentPlayer = 0;
-        } else if($this->currentPlayer === 0) {
+            $this->currentPlayer = 2;
+        } else if($this->currentPlayer === 2) {
             $this->currentPlayer = 1;
         }
     }

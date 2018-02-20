@@ -5,9 +5,9 @@ require_once('models/Game.php');
 require_once('models/Board.php');
 require_once('models/Stone.php');
 
-//$board = new monBoard(9);
-
 session_start();
+
+// If game doesn't exist
 if(!$_SESSION['board'] && 
    !$_SESSION['player1'] && 
    !$_SESSION['player2'] && 
@@ -24,13 +24,6 @@ $board = $_SESSION['board'];
 $player1 = $_SESSION['player1'];
 $player2 = $_SESSION['player2'];
 $game = $_SESSION['game'];
-
-// When user play a piece
-if(isset($_POST["currentTr"]) && isset($_POST["currentTd"])){
-    $board->addPositionPion( new Stone(0, intval($_POST["currentTd"]), intval($_POST["currentTr"])) );
-    $game->changePlayerTurn();
-    $_SESSION['currentBoard'] = $board->updateBoard($board->__get("position"));
-}
 
 // destroy session
 if(isset($_POST["kill"])){
@@ -50,7 +43,7 @@ if(isset($_POST["kill"])){
     <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
-    <button class="kill">Reset session</button>
+    <button class="kill">Reset GAME</button>
     <h1>Jeu de go</h1>
 
         <div class="wrapper-players">
@@ -77,20 +70,13 @@ if(isset($_POST["kill"])){
 
     <script>
         
-        
         //let currentPlayer = 1;
-
-        $('table').on('click', 'td', function () {
+    
+        $('body').on('click', 'table td', function () {
             // piece already on this case
             if (($(this).children('span').hasClass('blanc') || ($(this).children('span').hasClass('noir')))) {
                 return false;
             }
-
-            // if (currentPlayer === 1) {
-            //     $(this).children('span').addClass('blanc');
-            // } else {
-            //     $(this).children('span').addClass('noir');
-            // }
 
             // Faire une requete ajax au moment du click position du tr, td du click
             var data = {
@@ -99,9 +85,11 @@ if(isset($_POST["kill"])){
             };
 
             $.post('models/updateBoard.php', data, function (data) {
-                console.log("send");
-                $('.wrapper-goban').html(data);
+                console.log("Put new piece");
+                $('.wrapper-goban table').remove();
+                $('.wrapper-goban').append(data);
             });
+
         });
 
         /* DELETE AFTER DEV */

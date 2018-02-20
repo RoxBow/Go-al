@@ -8,7 +8,12 @@ require_once('./Stone.php');
 session_start();
 
 if(isset($_POST["currentTr"]) && isset($_POST["currentTd"])){
-    $_SESSION['board']->addPositionPion( new Stone(0, intval($_POST["currentTd"]), intval($_POST["currentTr"])) );
+    
+    $currentPlayer = $_SESSION['game']->__get("currentPlayer");
+    $posX = intval($_POST["currentTr"]);
+    $posY = intval($_POST["currentTd"]);
+
+    $_SESSION['board']->addPositionPion( new Stone($currentPlayer, $posX, $posY) );
     $_SESSION['game']->changePlayerTurn();
     $_SESSION['currentBoard'] = $_SESSION['board']->updateBoard($_SESSION['board']->__get("position"));
 
