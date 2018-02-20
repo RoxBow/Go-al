@@ -14,10 +14,6 @@ class Stone {
         $this->libertyDegree = 4;
     }
 
-    public function updateLibertyDegree(){
-        
-    }
-
     public function __get($attrName){
         try {
             return $this->$attrName;
