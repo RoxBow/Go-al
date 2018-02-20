@@ -8,14 +8,14 @@ function __autoload($classname) {
 session_start();
 
 // If game doesn't exist
-if(!$_SESSION['board'] && 
-   !$_SESSION['player1'] && 
-   !$_SESSION['player2'] && 
-   !$_SESSION['game']){
+if(!isset($_SESSION['board']) && 
+   !isset($_SESSION['player1']) && 
+   !isset($_SESSION['player2']) && 
+   !isset($_SESSION['game'])){
 
     $_SESSION['board'] = new Board(9);
-    $_SESSION['player1'] = new Player('Elmar');
-    $_SESSION['player2'] = new Player('Bendo');
+    $_SESSION['player1'] = new Player('White');
+    $_SESSION['player2'] = new Player('Black');
     $_SESSION['game'] = new Game($_SESSION['player1'], $_SESSION['player2']);
     $_SESSION['currentBoard'] = null;
 };

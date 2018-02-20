@@ -2,12 +2,20 @@
 
 class Stone {
 
-  protected $libertyDegree = 4;
+  protected $libertyDegree;
+  protected $positionX;
+  protected $positionY;
+  protected $color;
 
     public function __construct($color, $positionX, $positionY){
         $this->color = $color;
         $this->positionX = $positionX;
         $this->positionY = $positionY;
+        $this->libertyDegree = 4;
+    }
+
+    public function updateLibertyDegree(){
+        
     }
 
     public function __get($attrName){

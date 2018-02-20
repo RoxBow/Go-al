@@ -12,6 +12,8 @@ class Board {
 
     public function createBoard( $cases ){
 
+        $letters = null;
+        $numbers = null;
 
         for ($a = 0; $a < 2; $a++) { 
             $letters .= '<ul class="repere-lettres">';
@@ -41,8 +43,12 @@ class Board {
         
         for($i = 0; $i < $cases; $i++) {
             $board .= '<tr>';
-            for($j=0; $j < $cases; $j++) { 
-                $this->position[$i][$j] = 0;
+            for($j=0; $j < $cases; $j++) {
+
+                $pawnDatas['tempColor'] = 0;
+                $pawnDatas['tempLibertyDegree'] = 4;
+                
+                $this->position[$i][$j] = $pawnDatas;
 
                 $board .= '<td> <span class="pion"></span> </td>';                
             }
@@ -55,36 +61,101 @@ class Board {
     }
 
     public function addPositionPion ( Stone $pion ){
-        $value = $pion->__get('color');
+        $pawnDatas = [];
+       
+        $color = $pion->__get('color');
+        $libertyDegree = $pion->__get('libertyDegree');
+        
+        $pawnDatas['tempColor'] = $color;
+        $pawnDatas['tempLibertyDegree']= $libertyDegree;
+
         // add 1 to respect board number
         $posX = $pion->__get('positionX');
         $posY = $pion->__get('positionY');
 
-        $this->position[$posX][$posY] = $value;
+        $this->position[$posX][$posY] = $pawnDatas;
     }
 
     public function updateBoard($newBoard){
         
         $table = '<table id="game-board" class="ok">';
         
-        foreach($newBoard as $row) {
+        foreach($newBoard as $rowKey => $row) {
+            
             $table .= '<tr>';
 
-            foreach($row as $cell) {
-                if($cell === 1){
+            foreach($row as $cellKey => $cell) {
+                
+                if( ($rowKey != 0) )
+                {
+                    if ($cellKey != 0){
+
+                        if ($rowKey != 8) {
+                        
+                            if ($cellKey != 8){
+
+                                if( $newBoard[$rowKey][$cellKey-1]['tempColor'] !=0 ){
+                                    $dl = $cell['tempLibertyDegree'];
+                                    if( $dl != null){
+                                        $dl --;
+                                        $cell['tempLibertyDegree'] = $dl;
+                                
+                                    }
+                                    
+                                }
+                                if( $newBoard[$rowKey][$cellKey+1]['tempColor'] !=0 ){
+                                    $dl = $cell['tempLibertyDegree'];
+                                    if( $dl != null){
+                                        $dl --;
+                                        $cell['tempLibertyDegree'] = $dl;
+                                    }
+                                    
+                                }
+                                if( $newBoard[$rowKey-1][$cellKey]['tempColor'] !=0 ){
+                                    $dl = $cell['tempLibertyDegree'];
+                                    if( $dl != null){
+                                        $dl --;
+                                        $cell['tempLibertyDegree'] = $dl;
+                                    }
+                                    
+                                }
+                                if( $newBoard[$rowKey+1][$cellKey]['tempColor'] !=0 ){
+                                    $dl = $cell['tempLibertyDegree'];
+                                    if( $dl != null){
+                                        $dl --;
+                                        $cell['tempLibertyDegree'] = $dl;
+                                    }
+                                    
+                                }
+
+                                
+
+                            }
+
+                        }
+
+                    }
+                }
+
+                if ( $cell['tempLibertyDegree'] == 0 ) {
+                    if( $cell['tempColor'] != null ){
+                        $cell['tempColor'] = 0;
+                    }
+                }
+                
+                if($cell['tempColor'] === 1){
                     $table .= ('<td> <span class="pion noir"></span> </td>');
-                } else if($cell === 2){
+                } else if($cell['tempColor'] === 2){
                     $table .= ('<td> <span class="pion blanc"></span> </td>');
                 } else {
                     $table .= ('<td> <span class="pion"></span> </td>');
                 }
-              
+                
             }
 
             $table .= '</tr>';
         }
         $table .= '</table>';
-
         return $table;
     }
 
