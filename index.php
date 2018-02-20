@@ -55,11 +55,11 @@ if(isset($_POST["kill"])){
         <div class="wrapper-players">
             <div class="wrapper-player-1">
                 <h2 class="joueur1">Joueur 1</h2>
-                <p class="score1">0</p>
+                <p id="score1" class="score">0</p>
             </div>
             <div class="wrapper-player-2">
                 <h2 class="joueur2 actif">Joueur 2</h2>
-                <p class="score2">0</p>
+                <p id="score2" class="score">0</p>
             </div>
         </div>
         <div class="wrapper-goban">
@@ -91,6 +91,9 @@ if(isset($_POST["kill"])){
 
         });
 
+        //let currentPlayer = 1;
+        var pionNoir = true;
+
         $('body').on('click', 'table td', function () {
             // piece already on this case
             if (($(this).children('span').hasClass('blanc') || ($(this).children('span').hasClass('noir')))) {
@@ -110,10 +113,18 @@ if(isset($_POST["kill"])){
                 
                 $('.wrapper-goban table').remove();
                 $('.wrapper-goban').append(data.table);
-                $('.score1').text(data.player1);
-                $('.score2').text(data.player2);
+                $('#score1').text(data.player1);
+                $('#score2').text(data.player2);
             });
 
+            if (pionNoir) {
+                pionNoir = false;
+                $('.joueur1, .joueur2').toggleClass('actif');
+            }
+            else {
+                pionNoir = true;
+                $('.joueur1, .joueur2').toggleClass('actif');
+            }
         });
 
         /* DELETE AFTER DEV */
