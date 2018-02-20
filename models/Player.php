@@ -13,4 +13,8 @@ class Player {
     public function incrementPoint($point){
         $this->point += $point;
     }
+
+    public function decrementPoint($point){
+        $this->point -= $point;
+    }
 }
