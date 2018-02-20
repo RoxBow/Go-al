@@ -1,9 +1,9 @@
 <?php
 
-require_once('./Player.php');
-require_once('./Game.php');
-require_once('./Board.php');
-require_once('./Stone.php');
+function __autoload($classname) {
+    $filename = "./". $classname .".php";
+    include_once($filename);
+}
 
 session_start();
 

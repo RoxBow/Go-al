@@ -1,9 +1,9 @@
 <?php 
 
-require_once('models/Player.php');
-require_once('models/Game.php');
-require_once('models/Board.php');
-require_once('models/Stone.php');
+function __autoload($classname) {
+    $filename = "./models/". $classname .".php";
+    include_once($filename);
+}
 
 session_start();
 
@@ -21,6 +21,7 @@ if(!$_SESSION['board'] &&
 };
 
 $board = $_SESSION['board'];
+
 $player1 = $_SESSION['player1'];
 $player2 = $_SESSION['player2'];
 $game = $_SESSION['game'];
