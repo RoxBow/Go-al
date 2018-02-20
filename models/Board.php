@@ -94,40 +94,98 @@ class Board {
                         
                             if ($cellKey != 8){
 
-                                if( $newBoard[$rowKey][$cellKey-1]['tempColor'] !=0 ){
-                                    $dl = $cell['tempLibertyDegree'];
-                                    if( $dl != null){
-                                        $dl --;
-                                        $cell['tempLibertyDegree'] = $dl;
-                                
-                                    }
+                                switch ($cell['tempColor']) {
+                                    case 1:
+                                        
+                                        if( $newBoard[$rowKey][$cellKey-1]['tempColor'] == 2 ){
+                                            $dl = $cell['tempLibertyDegree'];
+                                            if( $dl != null){
+                                                $dl --;
+                                                $cell['tempLibertyDegree'] = $dl;
+                                                
+                                        
+                                            }
+                                            
+                                        }
+                                        if( $newBoard[$rowKey][$cellKey+1]['tempColor'] == 2 ){
+                                            $dl = $cell['tempLibertyDegree'];
+                                            if( $dl != null){
+                                                $dl --;
+                                                $cell['tempLibertyDegree'] = $dl;
+                                            }
+                                            
+                                        }
+                                        if( $newBoard[$rowKey-1][$cellKey]['tempColor'] == 2 ){
+                                            $dl = $cell['tempLibertyDegree'];
+                                            if( $dl != null){
+                                                $dl --;
+                                                $cell['tempLibertyDegree'] = $dl;
+                                                
+                                            }
+                                            
+                                        }
+                                        if( $newBoard[$rowKey+1][$cellKey]['tempColor'] == 2 ){
+                                            $dl = $cell['tempLibertyDegree'];
+                                            if( $dl != null){
+                                                $dl --;
+                                                $cell['tempLibertyDegree'] = $dl;
+                                                
+                                            }
+                                            
+                                        }
+
+                                        break;
+
+                                    case 2:
+                                        
+                                    if( $newBoard[$rowKey][$cellKey-1]['tempColor'] == 1 ){
+                                        $dl = $cell['tempLibertyDegree'];
+                                        if( $dl != null){
+                                            $dl --;
+                                            $cell['tempLibertyDegree'] = $dl;
+                                            
                                     
-                                }
-                                if( $newBoard[$rowKey][$cellKey+1]['tempColor'] !=0 ){
-                                    $dl = $cell['tempLibertyDegree'];
-                                    if( $dl != null){
-                                        $dl --;
-                                        $cell['tempLibertyDegree'] = $dl;
+                                        }
+                                        
                                     }
-                                    
-                                }
-                                if( $newBoard[$rowKey-1][$cellKey]['tempColor'] !=0 ){
-                                    $dl = $cell['tempLibertyDegree'];
-                                    if( $dl != null){
-                                        $dl --;
-                                        $cell['tempLibertyDegree'] = $dl;
+                                    if( $newBoard[$rowKey][$cellKey+1]['tempColor'] == 1 ){
+                                        $dl = $cell['tempLibertyDegree'];
+                                        if( $dl != null){
+                                            $dl --;
+                                            $cell['tempLibertyDegree'] = $dl;
+                                        }
+                                        
                                     }
-                                    
-                                }
-                                if( $newBoard[$rowKey+1][$cellKey]['tempColor'] !=0 ){
-                                    $dl = $cell['tempLibertyDegree'];
-                                    if( $dl != null){
-                                        $dl --;
-                                        $cell['tempLibertyDegree'] = $dl;
+                                    if( $newBoard[$rowKey-1][$cellKey]['tempColor'] == 1 ){
+                                        $dl = $cell['tempLibertyDegree'];
+                                        if( $dl != null){
+                                            $dl --;
+                                            $cell['tempLibertyDegree'] = $dl;
+                                            
+                                        }
+                                        
                                     }
+                                    if( $newBoard[$rowKey+1][$cellKey]['tempColor'] == 1 ){
+                                        $dl = $cell['tempLibertyDegree'];
+                                        if( $dl != null){
+                                            $dl --;
+                                            $cell['tempLibertyDegree'] = $dl;
+                                            
+                                        }
+                                        
+                                    }
+
+                                        break;
                                     
+                                    default:
+                                        # code...
+                                        break;
                                 }
 
+                                
+                                //echo $rowKey.'--'.$cellKey;
+                                //var_dump($cell);
+                                
                                 
 
                             }
@@ -136,19 +194,20 @@ class Board {
 
                     }
                 }
-
+                
                 if ( $cell['tempLibertyDegree'] == 0 ) {
-                    if( $cell['tempColor'] != null ){
+                    //echo '<script>console.log('.print_r($cell).')</script>';
+                    /* if( $cell['tempColor'] != null ){ */
                         $cell['tempColor'] = 0;
-                    }
+                    /*  */
                 }
                 
                 if($cell['tempColor'] === 1){
                     $table .= ('<td> <span class="pion noir"></span> </td>');
                 } else if($cell['tempColor'] === 2){
                     $table .= ('<td> <span class="pion blanc"></span> </td>');
-                } else {
-                    $table .= ('<td> <span class="pion"></span> </td>');
+                } else if($cell['tempColor'] === 0){
+                    $table .= ('<td> <span class="pion""></span> </td>');
                 }
                 
             }
