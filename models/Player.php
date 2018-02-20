@@ -16,10 +16,6 @@ class Player {
         $this->point += $point;
     }
 
-    public function decrementPoint($point){
-        $this->point -= $point;
-    }
-
     public function __get($attrName){
         try {
             return $this->$attrName;

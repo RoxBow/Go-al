@@ -55,11 +55,11 @@ if(isset($_POST["kill"])){
         <div class="wrapper-players">
             <div class="wrapper-player-1">
                 <h2 class="joueur1">Joueur 1</h2>
-                <p class="score">0</p>
+                <p class="score1">0</p>
             </div>
             <div class="wrapper-player-2">
                 <h2 class="joueur2 actif">Joueur 2</h2>
-                <p class="score">0</p>
+                <p class="score2">0</p>
             </div>
         </div>
         <div class="wrapper-goban">
@@ -72,11 +72,11 @@ if(isset($_POST["kill"])){
             }
         ?>
         </div>
+
     <script src="public/js/jquery-3.3.1.min.js"></script>
 
     <script>
         
-        //let currentPlayer = 1;
         $(document).ready(function() {
             let players = {
                 player1: prompt('Choisissez nom player1'),
@@ -105,8 +105,13 @@ if(isset($_POST["kill"])){
 
             $.post('models/updateBoard.php', data, function (data) {
                 console.log("Put new piece");
+                data = JSON.parse(data);
+                console.log(data);
+                
                 $('.wrapper-goban table').remove();
-                $('.wrapper-goban').append(data);
+                $('.wrapper-goban').append(data.table);
+                $('.score1').text(data.player1);
+                $('.score2').text(data.player2);
             });
 
         });
@@ -116,6 +121,7 @@ if(isset($_POST["kill"])){
         $('body').on('click', '.kill', function () {
             $.post('index.php', {kill: true}, function () {
                 console.log("Kill session");
+                location.reload();
             });
         });
     </script>

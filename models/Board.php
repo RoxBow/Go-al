@@ -36,7 +36,7 @@ class Board {
 
         echo $numbers;
 
-        
+
         /* # BOARD # */
         $board = '<table id="game-board">';
         
@@ -150,7 +150,7 @@ class Board {
 
         $table .= '</table>';
 
-        return $table;
+        return array('table' => $table, 'addPoint' => 1 ); 
     }
 
     public function __get($attrName){
