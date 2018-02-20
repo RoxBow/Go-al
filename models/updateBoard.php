@@ -1,5 +1,10 @@
 <?php
 
+function __autoload($classname) {
+    $filename = "./". $classname .".php";
+    include_once($filename);
+}
+
 session_start();
 
 if(isset($_POST["currentTr"]) && isset($_POST["currentTd"])){
