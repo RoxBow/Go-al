@@ -5,12 +5,13 @@ const NOSTONE = 0;
 
 $(document).ready(function () {
 
-    var players = {
+    var initInfo = {
+        boardSize: prompt('Veuillez choisir la taille du board -> 9 ou 13 ou 19', '9'),
         player1: prompt('Choisissez nom player 1'),
-        player2: prompt('Choisissez nom player 2')
+        player2: prompt('Choisissez nom player 2'),
     }
 
-    $.post('receiverAjax.php', players, function (data) {
+    $.post('receiverAjax.php', initInfo, function (data) {
         data = JSON.parse(data);
         constructBoard(data.board);
         initNamePlayer(data.player1, data.player2);
@@ -30,7 +31,6 @@ function constructBoard(arrayBoard) {
         renderBoard += '<tr>';
         
         for (var j = 0; j < arrayBoard.length; j++) {
-
             switch (arrayBoard[i][j]) {
                 case NOSTONE:
                     renderBoard += '<td> <span class="pion"></span> </td>';
@@ -45,7 +45,6 @@ function constructBoard(arrayBoard) {
                     renderBoard += '<td> <span class="pion"></span> </td>';
                     break;
             }
-
         }
 
         renderBoard += '</tr>';

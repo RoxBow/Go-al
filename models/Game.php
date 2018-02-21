@@ -6,7 +6,6 @@ class Game {
     const WHITE = 2;
     const NOSTONE = 0;
     
-    private $time = 0;
     private $turn = 0;
     private $Player1;
     private $Player2;
@@ -24,7 +23,7 @@ class Game {
 
     public function init(){
         $firstBoard = $this->board->generateBoard();
-
+        
         return $firstBoard;
     }
 
@@ -37,8 +36,6 @@ class Game {
         } else if($this->currentPlayer === Game::WHITE){
             $this->currentPlayer = Game::BLACK;
         }
-
-
     }
 
     public function updatePointPlayers($colorDelete){

@@ -31,14 +31,14 @@ if( isset($_POST["currentTr"]) && isset($_POST["currentTd"]) ){
         )
     );
 
-} else if( isset($_POST["player1"]) && isset($_POST["player2"]) ){
+} else if( isset($_POST["boardSize"]) && isset($_POST["player1"]) && isset($_POST["player2"]) ){
     /*
      * Player 1 is white
      * Player 2 is black
     */
     $player1 = new Player($_POST["player1"], 2);
     $player2 = new Player($_POST["player2"], 1);
-    $firstBoard = new Board(9);
+    $firstBoard = new Board($_POST["boardSize"]);
 
     $_SESSION['game'] = new Game($firstBoard, $player1, $player2);
     $boardSize = $_SESSION['game']->init();
