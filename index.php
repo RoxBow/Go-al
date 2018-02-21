@@ -16,7 +16,6 @@ session_start();
 </head>
 <body>
     <h1>Jeu de go</h1>
-    <div class="wrapper-goban">
 
     <div class="wrapper-players">
         <div>
