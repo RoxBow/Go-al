@@ -2,67 +2,97 @@
 
 class Board {
 
-    protected $cases;
-    protected $position;
+    const BLACK = 1;
+    const WHITE = 2;
+    const NOSTONE = 0;
 
-    public function __construct( $nbCases ){
-        $this->cases = $nbCases;
-        $this->position = [];
+    private $boardPosition;
+    private $nbrCases;
+
+    /* 
+     * Will get the color piece remove from board 
+     * To update point players
+     */  
+    private $lastColorDelete = null;
+    
+    public function __construct($nbrCases){
+        $this->boardPosition = [];
+        $this->nbrCases = $nbrCases;
     }
+    
+    public function generateBoard(){
+        $nbrCases = $this->nbrCases;
 
-    public function createBoard( $cases ){
-
-        for ($a = 0; $a < 2; $a++) { 
-            echo '<ul class="repere-lettres">';
-                for($i = 0; $i < $cases; $i++) {
-                    echo '<li>&#0'.($i+65).'</li>';
-                }
-            echo '</ul>';
-        }
-
-        for ($b = 0; $b < 2; $b++) { 
-            echo '<ul class="repere-chiffres">';
-                for($i = 0; $i < $cases; $i++) {
-                    echo '<li>'.($i+1).'</li>';
-                }
-            echo '</ul>';            
-        }
-
-        /* # BOARD # */
-
-        echo '<table id="game-board">';
-        
-        for($i = 0; $i < $cases; $i++) {
-            echo '<tr>';
-            for($j=0; $j < $cases; $j++) { 
-                $this->position[$i][$j] = 0;
-
-                echo '<td> <span class="pion"></span> </td>';                
+        for($i = 0; $i < $nbrCases; $i++){
+            for($j= 0; $j < $nbrCases; $j++){
+                
+                // Each case of board is init to 0 for empty
+                $stone['colorStone'] = Board::NOSTONE;
+                $this->boardPosition[$i][$j] = $stone['colorStone'];
             }
-            echo '</tr>';
         }
 
-        echo '</table>';
+        return $this->boardPosition;
     }
 
-    public function addPositionPion ( $turn, $x, $y ){
-        $value = $turn === "white" ? 1 : 0;
-        // add 1 to respect board number
-        $x += 1;
-        $y += 1;
-        $this->position[$x][$y] = $value;
+    public function addStone($color, $x, $y) {
+        // If case is empty
+        if ($this->boardPosition[$x][$y] === Board::NOSTONE) {
+            $this->boardPosition[$x][$y] = $color;
+            $this->resolve();
+        }
     }
 
-    public function checkDeadPiece(){
-
+    private function resolve() {
+        foreach ($this->boardPosition as $x => $row) {
+            foreach($row as $y => $square) {
+                // if case has piece
+                if ($square > 0) $this->resolveSquare($x,$y);
+            }
+        }
     }
 
-    public function __get($attrName){
+    private function resolveSquare($x,$y) {
+
+        $checks = array(
+            array($x-1,$y),
+            array($x+1,$y),
+            array($x,$y-1),
+            array($x,$y+1)
+        );
+
+        $color = $this->boardPosition[$x][$y];
+        $ennemyColor = $color === Board::BLACK ? Board::WHITE : Board::BLACK;
+        
+        // Reset liberty degree
+        $surrounding = 0;
+
+        
+        foreach($checks as $check) {
+            if ($check[0] < 0 || $check[1] < 0 ||
+                $check[0] >= $this->nbrCases || $check[1] >= $this->nbrCases ||
+                $this->boardPosition[$check[0]][$check[1]] === $ennemyColor ) {
+                    $surrounding++;
+                }
+        }
+
+        if ($surrounding === 4){
+            // Save last color delete
+            $this->lastColorDelete = $this->boardPosition[$x][$y];
+            $this->boardPosition[$x][$y] = Board::NOSTONE;
+        }
+    }
+
+    public function __get($property){
         try {
-            return $this->$attrName;
+            return $this->$property;
         } catch (Exception $e) {
-            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
         }
+    }
+
+    public function __set($property, $value) {
+        $this->$property = $value;
     }
 
 }

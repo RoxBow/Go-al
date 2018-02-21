@@ -9,7 +9,19 @@ class Player {
         $this->name = $name;
     }
 
-    public function incrementPoint($point){
-        $this->point += $point;
+    public function incrementPoint(){
+        $this->point += 1;
+    }
+
+    public function __get($property){
+        try {
+            return $this->$property;
+        } catch (Exception $e) {
+            echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
+    }
+
+    public function __set($property, $value) {
+        $this->$property = $value;
     }
 }

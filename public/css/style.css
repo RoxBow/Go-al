@@ -69,7 +69,7 @@ table tr td {
     height: 40px;
     position: relative;
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     z-index: 2;
 }
 
@@ -85,12 +85,16 @@ table tr td span.pion {
     z-index: 5;
 }
 
-table tr td span.blanc {
-    background: #ffffff;
+table tr td span:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
-table tr td span.noir {
-    background: #000000;
+table tr td span.white {
+    background: #fff;
+}
+
+table tr td span.black {
+    background: #000;
 }
 
 table tr td::before {

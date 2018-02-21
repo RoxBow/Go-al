@@ -1,42 +1,66 @@
 <?php
 
 class Game {
+
+    const BLACK = 1;
+    const WHITE = 2;
+    const NOSTONE = 0;
     
     private $time = 0;
     private $turn = 0;
     private $Player1;
     private $Player2;
-    
-    // 1 = white | 0 = black
-    // player start is white
+    protected $currentPlayer;
+    private $board;
 
-    public function __construct(Player $Player1, Player $Player2) {
-        $this->Player1 = $Player1;
-        $this->Player2 = $Player2;
-        $this->currentPlayer = 1;
+    public function __construct(Board $board, Player $player1, Player $player2) {
+        $this->Player1 = $player1;
+        $this->Player2 = $player2;
+        $this->board = $board;
+
+        // Player start is black (rule)
+        $this->currentPlayer = Game::BLACK;
     }
 
-    public function incrementTurn(){
-        $this->turn++;
+    public function init(){
+        $firstBoard = $this->board->generateBoard();
+
+        return $firstBoard;
     }
 
-    public function changePlayerTurn(){
+    public function updateTurn(){
 
-        if($this->currentPlayer === 1){
-            $this->currentPlayer = 0;
-        } else if($this->currentPlayer === 0) {
-            $this->currentPlayer = 1;
+        // Altern turn players
+        if($this->currentPlayer === Game::BLACK){
+            $this->turn++;
+            $this->currentPlayer = Game::WHITE;
+        } else if($this->currentPlayer === Game::WHITE){
+            $this->currentPlayer = Game::BLACK;
         }
 
 
     }
 
-    public function __get($attrName){
+    public function updatePointPlayers($colorDelete){
+
+        if($colorDelete === Game::BLACK){
+            $this->Player2->incrementPoint();
+        } else if($colorDelete === Game::WHITE){
+            $this->Player1->incrementPoint();
+        }
+    }
+
+    public function __get($property){
         try {
-            return $this->$attrName;
+            return $this->$property;
         } catch (Exception $e) {
             echo 'Exception reçue : ',  $e->getMessage(), "\n";
         }
     }
+
+    public function __set($property, $value) {
+        $this->$property = $value;
+    }
+
 
 }
