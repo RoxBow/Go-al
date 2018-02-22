@@ -1,12 +1,26 @@
+@font-face {
+    font-family: "font-defaut";
+    src: url("../fonts/theboldfont.ttf");
+}
+
 * {
     box-sizing: border-box;
 }
 
+h1, h2, p {
+    font-family: "font-defaut";
+}
+
 body{
     display: flex;
-    height: 100vh;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    padding: 0 20%;
+}
+
+h1 {
+    font-size: 3em;
 }
 
 .wrapper-goban {
@@ -139,4 +153,148 @@ table tr:first-child td::after {
 
 table tr:last-child td::after {
     height: 50%;
+}
+
+.wrapper-players {
+    width: 100%;
+}
+
+.wrapper-tour {
+    position: relative;
+    margin: auto;
+    width: 150px;
+    height: 80px;
+    background-image: url(../images/tour.png);
+    background-size: 100% 100%;
+}
+
+.wrapper-tour p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding-bottom: 12px;
+    font-size: 1.4em;
+}
+
+.wrapper-player-1, .wrapper-player-2 {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    text-align: center;
+    margin: 15px 0 40px 0;
+}
+
+.wrapper-player-1 {
+    margin-right: -4px;
+    background-image: url(../images/bg-player-left.png);
+    background-size: 100% 100%;
+    height: 100px;
+    width: 290px;
+}
+
+.wrapper-player-1 h2 {
+    padding: 0 50px 0 32px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.wrapper-player-1 h2.actif::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: url(../images/currentplayer.png);
+    background-size: 100% 100%;
+    width: 60px;
+    height: 50px;
+}
+
+.wrapper-player-1 p {
+    position: relative;
+    width: 30px;
+    margin: 0 auto;
+    font-size: 1.25em;
+}
+
+.wrapper-player-1 p::before {
+    content: "";
+    background-image: url(../images/score.png);
+    background-size: 100% 100%;
+    right: -15px;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wrapper-player-2 {
+    float: right;
+    background-image: url(../images/bg-player-right.png);
+    background-size: 100% 100%;
+    height: 100px;
+    width: 290px;
+}
+
+.wrapper-player-2 h2 {
+    padding: 0 32px 0 50px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.wrapper-player-2 h2.actif::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-image: url(../images/currentplayer.png);
+    background-size: 100% 100%;
+    width: 60px;
+    height: 50px;
+}
+
+.wrapper-player-2 p {
+    position: relative;
+    width: 30px;
+    margin: 0 auto;
+    font-size: 1.25em;
+}
+
+.wrapper-player-2 p::before {
+    content: "";
+    background-image: url(../images/score.png);
+    background-size: 100% 100%;
+    left: -15px;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.kill {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    padding: 14px 20px 14px 35px;
+    border-radius: 20px;
+    background-color: #000;
+    color: #fff;
+}
+
+.kill::before {
+    content: "";
+    background-image: url(../images/restart.png);
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
