@@ -21,13 +21,16 @@ session_start();
         <div class="wrapper-tour">
             <p id="turn"></p>
         </div>
-        <div class="wrapper-player-1">
-            <h2 class="joueur1 actif">Joueur 1</h2>
-            <p id="score1" class="score">0</p>
-        </div>
-        <div class="wrapper-player-2">
-            <h2 class="joueur2">Joueur 2</h2>
-            <p id="score2" class="score">0</p>
+        <div class="wrapper-players-info">
+            <div class="wrapper-player-1">
+                <h2 class="joueur1 actif">Joueur 1</h2>
+                <p id="score1" class="score">0</p>
+            </div>
+            <img src="./public/images/versus.png" alt="versus" class="versus">
+            <div class="wrapper-player-2">
+                <h2 class="joueur2">Joueur 2</h2>
+                <p id="score2" class="score">0</p>
+            </div>
         </div>
     </div>
 
